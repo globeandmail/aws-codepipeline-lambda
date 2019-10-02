@@ -1,12 +1,11 @@
 ## aws-codepipeline-lambda
 Creates a pipeline that generates a lambda zip archive and updates the existing function code
 
-## Example
+## Usage
 
 ```hcl
 module "lambda_pipeline" {
-  source  = "github.com/globeandmail/aws-codepipeline-lambda"
-  version = "~> 1.0"
+  source = "github.com/globeandmail/aws-codepipeline-lambda?ref=1.0"
 
   name               = app-name
   function_name      = lambda-function-name
