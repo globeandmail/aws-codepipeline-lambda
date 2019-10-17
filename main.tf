@@ -7,11 +7,12 @@ locals {
 }
 
 module "codebuild_project" {
-  source = "github.com/globeandmail/aws-codebuild-project?ref=1.0"
+  source = "github.com/globeandmail/aws-codebuild-project?ref=1.1"
 
-  name        = var.name
-  deploy_type = "lambda"
-  tags        = var.tags
+  name            = var.name
+  deploy_type     = "lambda"
+  tags            = var.tags
+  privileged_mode = var.privileged_mode
 }
 
 data "aws_iam_policy_document" "codepipeline_assume" {

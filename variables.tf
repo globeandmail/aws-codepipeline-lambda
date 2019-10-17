@@ -47,6 +47,13 @@ variable "deploy_function_name" {
   default     = "CodepipelineDeploy"
 }
 
+variable "privileged_mode" {
+  type        = string
+  description = "Use privileged mode for containers"
+  default     = false
+}
+
+
 variable "tags" {
   type        = map
   description = "A mapping of tags to assign to the resource"
