@@ -1,6 +1,11 @@
 data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
 
+provider "github" {
+  token = var.github_oauth_token
+  owner = var.github_repo_owner
+}
+
 locals {
   aws_region = data.aws_region.current.name
   account_id = data.aws_caller_identity.current.account_id
@@ -95,10 +100,11 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["code"]
 
       configuration = {
-        Owner      = var.github_repo_owner
-        Repo       = var.github_repo_name
-        Branch     = var.github_branch_name
-        OAuthToken = var.github_oauth_token
+        Owner                = var.github_repo_owner
+        Repo                 = var.github_repo_name
+        Branch               = var.github_branch_name
+        OAuthToken           = var.github_oauth_token
+        PollForSourceChanges = "false"
       }
     }
   }
@@ -140,3 +146,33 @@ resource "aws_codepipeline" "pipeline" {
   }
 }
 
+resource "aws_codepipeline_webhook" "github" {
+  name            = var.name
+  authentication  = "GITHUB_HMAC"
+  target_action   = "Source"
+  target_pipeline = aws_codepipeline.pipeline.name
+
+  authentication_configuration {
+    secret_token = var.github_oauth_token
+  }
+
+  filter {
+    json_path    = "$.ref"
+    match_equals = "refs/heads/{Branch}"
+  }
+}
+
+resource "github_repository_webhook" "aws_codepipeline" {
+  repository = var.github_repo_name
+
+  # name = "web"
+
+  configuration {
+    url          = aws_codepipeline_webhook.github.url
+    content_type = "form"
+    # insecure_ssl = "true"
+    secret = var.github_oauth_token
+  }
+
+  events = ["push"]
+}
