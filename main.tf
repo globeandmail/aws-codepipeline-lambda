@@ -169,8 +169,7 @@ resource "github_repository_webhook" "aws_codepipeline" {
 
   configuration {
     url          = aws_codepipeline_webhook.github.url
-    content_type = "form"
-    # insecure_ssl = "true"
+    content_type = "json"
     secret = var.github_oauth_token
   }
 

@@ -1,14 +1,14 @@
 ## aws-codepipeline-lambda
 Creates a pipeline that generates a lambda zip archive and updates the existing function code
 
-## v1.3 Note
+## v1.4 Note
 The account that owns the guthub token must have admin access on the repo in order to generate a github webhook 
 
 ## Usage
 
 ```hcl
 module "lambda_pipeline" {
-  source = "github.com/globeandmail/aws-codepipeline-lambda?ref=1.3"
+  source = "github.com/globeandmail/aws-codepipeline-lambda?ref=1.4"
 
   name               = app-name
   function_name      = lambda-function-name
