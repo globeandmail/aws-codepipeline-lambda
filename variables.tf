@@ -30,6 +30,12 @@ variable "codebuild_image" {
   default     = null
 }
 
+variable "buildspec" {
+  type        = string
+  description = "build spec file other than buildspec.yml"
+  default     = "buildspec.yml"
+}
+
 variable "function_name" {
   type        = string
   description = "The name of the Lambda function to update"

@@ -8,7 +8,7 @@ The account that owns the guthub token must have admin access on the repo in ord
 
 ```hcl
 module "lambda_pipeline" {
-  source = "github.com/globeandmail/aws-codepipeline-lambda?ref=1.4"
+  source = "github.com/globeandmail/aws-codepipeline-lambda?ref=1.5"
 
   name               = app-name
   function_name      = lambda-function-name
@@ -32,6 +32,7 @@ module "lambda_pipeline" {
 | github\_oauth\_token | GitHub oauth token | string | n/a | yes |
 | github\_branch\_name | The git branch name to use for the codebuild project | string | `"master"` | no |
 | codebuild\_image | The codebuild image to use | string | `"null"` | no |
+| buildspec | build spec file other than buildspec.yml | string | `"buildspec.yml"` | no |
 | function\_alias | The name of the Lambda function alias that gets passed to the UserParameters data in the deploy stage | string | `"live"` | no |
 | deploy\_function\_name | The name of the Lambda function in the account that will update the function code | string | `"CodepipelineDeploy"` | no |
 | tags | A mapping of tags to assign to the resource | map | `{}` | no |
