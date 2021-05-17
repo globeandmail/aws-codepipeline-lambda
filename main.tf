@@ -18,6 +18,7 @@ module "codebuild_project" {
   deploy_type     = "lambda"
   tags            = var.tags
   privileged_mode = var.privileged_mode
+  buildspec       = var.buildspec
 }
 
 data "aws_iam_policy_document" "codepipeline_assume" {
